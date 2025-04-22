@@ -1,1 +1,27 @@
+const int uvSensorPin = A0;
 
+void setup() {
+  Serial.begin(9600);
+  Serial.println("===== UV Radiation Monitor =====");
+  Serial.println("Analog Value | Voltage (V) | UV Index");
+}
+
+void loop() {
+  int uvValue = analogRead(uvSensorPin);
+
+  // Convert analog value to voltage (5V ADC, 10-bit)
+  float voltage = uvValue * (5.0 / 1023.0);
+
+  // Convert to UV Index (approximate)
+  float uvIndex = voltage * 10;
+
+  // Print to Serial Monitor
+  Serial.print("      ");
+  Serial.print(uvValue);
+  Serial.print("       |     ");
+  Serial.print(voltage, 2);
+  Serial.print("     |    ");
+  Serial.println(uvIndex, 1);
+
+  delay(1000);  // 1-second delay
+}
